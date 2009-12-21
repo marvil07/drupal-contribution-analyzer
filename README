@@ -1,0 +1,17 @@
+This files were used to generate a drupal code swarm video which include
+many users per commit based on log attribution.
+
+drupalcodeswarmlog.sh
+The script that writes codeswarm xml, it use getauthors.
+
+getauthors.php
+Extract user information from the log.
+
+drupal.config
+Codeswarm configuration file to generate the png's.
+
+drupal7-git-logs.xml
+generated xml for D7 branch using drupalcodeswarmlog.sh
+
+drupalfull-git-logs.xml
+generated xml for whole drupal history using drupalcodeswarmlog.sh
