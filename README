@@ -15,3 +15,6 @@ generated xml for D7 branch using drupalcodeswarmlog.sh
 
 drupalfull-git-logs.xml
 generated xml for whole drupal history using drupalcodeswarmlog.sh
+
+generatevideo.sh
+make a video based on codeswarm generated PNGs
