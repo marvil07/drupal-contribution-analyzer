@@ -1,20 +1,68 @@
+= Drupal code swarm =
+
+== About files ==
+
 This files were used to generate a drupal code swarm video which include
 many users per commit based on log attribution.
 
-drupalcodeswarmlog.sh
+- drupalcodeswarmlog.sh:
 The script that writes codeswarm xml, it use getauthors.
 
-getauthors.php
+- getauthors.php:
 Extract user information from the log.
 
-drupal.config
+- drupal.config:
 Codeswarm configuration file to generate the png's.
 
-drupal7-git-logs.xml
-generated xml for D7 branch using drupalcodeswarmlog.sh
+- drupal7-git-logs.xml:
+Generated xml for D7 branch using drupalcodeswarmlog.sh
 
-drupalfull-git-logs.xml
-generated xml for whole drupal history using drupalcodeswarmlog.sh
+- drupalfull-git-logs.xml:
+Generated xml for whole drupal history using drupalcodeswarmlog.sh
 
-generatevideo.sh
-make a video based on codeswarm generated PNGs
+- generatevideo.sh:
+Make a video based on codeswarm generated PNGs
+
+== How to use this ==
+
+. Get a drupal git repo from drupalfr:
+git://git.drupalfr.org/git/core/main.git
+
+. Copy drupalcodeswarmlog.sh, getauthors.php inside the root of the
+drupal git repository
+
+. Run:
++
+[source,sh]
+----
+./drupalcodeswarmlog.sh > drupal7-git-logs.xml
+----
+
+. Get codeswarm: http://codeswarm.googlecode.com/
+
+. Build code_swarm with ant
+
+. Copy the xml file you just generated to the data/ directory in the root
+of code_swarm.
+
+. Copy drupal.config to the root of code_swarm.
+
+. Make sure the InputFile variable in drupal.config have the right value
+set(the xml file you just generated)
+
+. Generate the frames for the video
++
+[source,sh]
+----
+./run.sh drupal.config
+----
+
+. Copy generatevideo.sh to the frames directory of code_swarm
+
+. Make the video
++
+[source,sh]
+----
+cd frames/
+./generatevideo.sh drupal7-git-logs.flv
+----
