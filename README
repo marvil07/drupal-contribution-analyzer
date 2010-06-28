@@ -5,41 +5,34 @@
 This files were used to generate a drupal code swarm video which include
 many users per commit based on log attribution.
 
-- drupalcodeswarmlog.sh:
-The script that writes codeswarm xml, it use getauthors.
+- `drupalcodeswarmlog.py`:
+The script that writes codeswarm xml.
 
-- getauthors.php:
-Extract user information from the log.
-
-- drupal.config:
+- `drupal.config`:
 Codeswarm configuration file to generate the png's.
 
-- drupal7-git-logs.xml:
-Generated xml for D7 branch using drupalcodeswarmlog.sh
+- `drupal7-git-logs.xml`, `drupalfull-git-logs.xml`:
+Generated xml for D7 branch and the whole drupal history using
+`drupalcodeswarmlog.py`.
 
-- drupalfull-git-logs.xml:
-Generated xml for whole drupal history using drupalcodeswarmlog.sh
-
-- generatevideo.sh:
-Make a video based on codeswarm generated PNGs
+- `generatevideo.sh`:
+Make an flv video based on codeswarm generated PNGs
 
 == How to use this ==
 
 . Get a drupal git repo from drupalfr:
 git://git.drupalfr.org/git/core/main.git
 
-. Copy drupalcodeswarmlog.sh, getauthors.php inside the root of the
-drupal git repository
-
-. Run:
+. Generate the xml for codeswarm:
 +
 [source,sh]
 ----
 python drupalcodeswarmlog.py \
            -o drupal7-git-logs.xml \
-           703488e5c5daf2c917c2d114d7946bc3a206519d..master
+           path/to/drupalfr/gitrepo \
+           master
 ----
-
++
 NOTE: `703488e5c5daf2c917c2d114d7946bc3a206519d` is the commit before D7
 start, so you need to pass
 `703488e5c5daf2c917c2d114d7946bc3a206519d..master` to get D7 development
@@ -48,24 +41,25 @@ accept. You can also use `master` to get full history.
 
 . Get codeswarm: http://codeswarm.googlecode.com/
 
-. Build code_swarm with ant
+. Build code_swarm with ant.
 
-. Copy the xml file you just generated to the data/ directory in the root
+. Copy the xml file you just generated to the `data/` directory in the root
 of code_swarm.
 
-. Copy drupal.config to the root of code_swarm.
+. Copy `drupal.config` to the root of code_swarm.
 
-. Make sure the InputFile variable in drupal.config have the right value
+. Make sure the InputFile variable in `drupal.config` have the right value
 set(the xml file you just generated)
 
 . Generate the frames for the video
 +
 [source,sh]
 ----
+cd path/to/code_swarm
 ./run.sh drupal.config
 ----
 
-. Copy generatevideo.sh to the frames directory of code_swarm
+. Copy `generatevideo.sh` to the `frames/` directory of code_swarm
 
 . Make the video
 +
