@@ -1,9 +1,16 @@
 #!/usr/bin/python
 
-import git, re
+from optparse import OptionParser
+import git, re, os, sys
 
-def get_git_log(repo, target):
-    return repo.git.log("--all", "--reverse", target, date="iso", format="%H\t%at\t%an\t%s")
+"""
+Return a special git-log output of the repo and using target.
+"""
+def get_git_log(repo, target, whole_history=False):
+    if whole_history:
+        return repo.git.log(target, "--all", "--reverse", date="iso", format="%H\t%at\t%an\t%s")
+    else:
+        return repo.git.log(target, "--reverse", date="iso", format="%H\t%at\t%an\t%s")
 
 def get_git_changes(repo, commit_id):
     #git whatchanged -1 --format="%an" $HASH
@@ -52,14 +59,35 @@ def get_authors(subject):
     return authors
 
 def main():
-    commit_before_d7_start='703488e5c5daf2c917c2d114d7946bc3a206519d'
-    #target = "master"
-    target = commit_before_d7_start + "..master"
 
-    repo = git.Repo('/home/marvil/sandbox/drupalcodeswarm/core')
+    # handling argv
+    usage = "usage: %prog [options] path [target]\n"\
+    "  path is the local clone of the drupalfr git repository\n"\
+    "  target is the argument passed to git-log as <since>..<until>"
+    parser = OptionParser(usage=usage)
+    parser.add_option("-o", "--output", metavar="FILE", dest="filename",
+            help="write output to FILE")
+    parser.add_option("-a", "--full-history", action="store_true", dest="full_history",
+            help="Use `--all` at git-log. This option is incompatible with target argument")
+    (options, args) = parser.parse_args()
+    if options.full_history:
+        if len(args) != 1:
+            parser.error("Incorrect number of arguments.\n"
+            "If you provide -a you can not set the target since\n"
+            "git-log anyway is going to retrieve whole history")
+        target = 'master'
+    else:
+        if len(args) != 2:
+            parser.error("Incorrect number of arguments.")
+        target = args[1]
+    if options.filename is not None:
+        sys.stdout = open(options.filename, 'w')
+
+    path_to_repo = os.path.abspath(args[0])
+    repo = git.Repo(path_to_repo)
 
     # get git output
-    git_log = get_git_log(repo, target)
+    git_log = get_git_log(repo, target, options.full_history)
 
     print '<?xml version="1.0"?>\n<file_events>'
 
@@ -77,4 +105,5 @@ def main():
 
     print '</file_events>'
 
-main()
+if __name__ == "__main__":
+    main()

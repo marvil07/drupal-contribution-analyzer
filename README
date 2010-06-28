@@ -35,8 +35,16 @@ drupal git repository
 +
 [source,sh]
 ----
-./drupalcodeswarmlog.sh > drupal7-git-logs.xml
+python drupalcodeswarmlog.py \
+           -o drupal7-git-logs.xml \
+           703488e5c5daf2c917c2d114d7946bc3a206519d..master
 ----
+
+NOTE: `703488e5c5daf2c917c2d114d7946bc3a206519d` is the commit before D7
+start, so you need to pass
+`703488e5c5daf2c917c2d114d7946bc3a206519d..master` to get D7 development
+history. you can also pass any other `<since>..<until>` that git-log can
+accept. You can also use `master` to get full history.
 
 . Get codeswarm: http://codeswarm.googlecode.com/
 
