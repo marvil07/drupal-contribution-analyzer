@@ -1,4 +1,7 @@
 #!/usr/bin/python
+"""
+The script that writes codeswarm xml.
+"""
 
 from optparse import OptionParser
 import git, re, os, sys

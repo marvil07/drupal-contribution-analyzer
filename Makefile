@@ -5,10 +5,13 @@ TARGET=703488e5c5daf2c917c2d114d7946bc3a206519d..master
 TIMEWARNING=Making the logs is a time consuming operation, please be patient.
 
 all: doc
+
 clean:
-	rm *.html
-doc:
-	asciidoc -a data-uri -a icons -a iconsdir=/etc/asciidoc/images/icons README
+	rm README.html
+
+doc: README.html
+README.html: README
+	asciidoc -a data-uri -a icons -a iconsdir=/etc/asciidoc/images/icons -o README.html README
 
 drupal-core-git-repo:
 	git clone -l $(DRUPALCORE) drupal-core-git-repo

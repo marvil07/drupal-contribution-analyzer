@@ -1,4 +1,5 @@
 #!/bin/bash
+# Make an flv video based on codeswarm generated png's
 
 OUTPUT_FILE=$1
 

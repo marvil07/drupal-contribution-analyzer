@@ -1,35 +1,54 @@
-= Drupal code swarm =
+= Drupal drupal contribution analyzer =
 
-== About files ==
+This set of scripts tries to get statistics from the drupal project
+commit history.
+It also tries to get as much as possible attribution in commit messages
+as possible.
 
-This files were used to generate a drupal code swarm video which include
-many users per commit based on log attribution.
+== Requirements ==
 
-- `drupalcodeswarmlog.py`:
-The script that writes codeswarm xml.
-
-- `drupal.config`:
-Codeswarm configuration file to generate the png's.
-
-- `drupal7-git-logs.xml`, `drupalfull-git-logs.xml`:
-Generated xml for D7 branch and the whole drupal history using
-`drupalcodeswarmlog.py`.
-
-- `generatevideo.sh`:
-Make an flv video based on codeswarm generated PNGs
+* git
+* autotools
+* python
+* python-git
+* codeswarm and mencoder (if you want to generate the video)
+* asciidoc
 
 == How to use this ==
 
-. Get a drupal git repo from drupalfr:
+First, you need to get a drupal git repo from drupalfr
 `git://git.drupalfr.org/git/core/main.git`
+and configure accordingly the `config.mk` file.
+
+=== Tag cloud ===
+
+To generate a tag cloud of file activity, using http://www.wordle.net you
+need to:
+
+. Generate the log file:
++
+[source,sh]
+----
+make filelog-count
+----
+
+. Go to http://www.wordle.net/advanced and paste the contents of the file
+in the first box.
+
+. Make it pretty with the applet options.
+
+NOTE: You can get a PDF of the tag cloud and then import it from inkscape
+to generate the image size you need ;-)
+
+=== Codeswarm ===
+
+To get a codeswarm video of drupal history your need to:
 
 . Generate the xml files for codeswarm:
 +
 [source,sh]
 ----
-# here we generate two xml files: one for D7 and the other for the whole
-# history
-./generatelogs.sh path/to/drupalfr/gitrepo
+make mainlogs
 ----
 
 . Get codeswarm: http://codeswarm.googlecode.com/
@@ -38,6 +57,10 @@ Make an flv video based on codeswarm generated PNGs
 
 . Copy the xml file you just generated to the `data/` directory in the root
 of code_swarm.
++
+NOTE: `make mainlogs` actually generate two xml files, so please repeat
+this process if you want a video for Drupal 7 development and another one
+for the full history of Drupal development.
 
 . Copy `drupal.config` to the root of code_swarm.
 
