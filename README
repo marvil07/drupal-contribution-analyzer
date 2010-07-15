@@ -29,7 +29,10 @@ need to:
 +
 [source,sh]
 ----
+# for measuring activity by the number of changed files
 make filelog-count
+# for measuring activity by the number of commits
+make commitlog-count
 ----
 
 . Go to http://www.wordle.net/advanced and paste the contents of the file
@@ -65,7 +68,8 @@ for the full history of Drupal development.
 . Copy `drupal.config` to the root of code_swarm.
 
 . Make sure the InputFile variable in `drupal.config` have the right value
-set(the xml file you just generated)
+set(the xml file you just generated) and create the directory frames in
+the root of codeswarm.
 
 . Generate the frames for the video
 +
