@@ -30,5 +30,5 @@ drupalfull-git-logs.xml: drupal-core-git-repo
 	python drupalcodeswarmlog.py -a drupal-core-git-repo | sed -f post-process.sed > drupalfull-git-logs.xml
 
 filelog-count: mainlogs
-	./prepare_tag_output.sh drupal7-git-logs.xml > drupal7-dev-participation.xml
-	./prepare_tag_output.sh drupalfull-git-logs.xml > drupalfull-dev-participation.xml
+	./prepare_tag_output.sh drupal7-git-logs.xml > drupal7-dev-participation.txt
+	./prepare_tag_output.sh drupalfull-git-logs.xml > drupalfull-dev-participation.txt
