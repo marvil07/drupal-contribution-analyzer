@@ -10,8 +10,8 @@ clean:
 	rm README.html
 
 doc: README.html
-README.html: README
-	asciidoc -a data-uri -a icons -a iconsdir=/etc/asciidoc/images/icons -o README.html README
+README.html: README.asciidoc
+	asciidoc -a data-uri -a icons -a iconsdir=/etc/asciidoc/images/icons -o README.html README.asciidoc
 
 drupal-core-git-repo:
 	git clone -l $(DRUPALCORE) drupal-core-git-repo
