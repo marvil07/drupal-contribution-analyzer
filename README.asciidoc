@@ -7,12 +7,18 @@ as possible.
 
 == Requirements ==
 
+=== Mandatory ===
+
 * git
-* autotools
+* make
 * python
 * python-git
-* codeswarm and mencoder (if you want to generate the video)
-* asciidoc
+
+=== Optional ===
+
+* codeswarm and mencoder (to generate the videos)
+* processing and wordookie (to generate tag clouds)
+* asciidoc (to generate the compiled documentation)
 
 == How to use this ==
 
@@ -35,13 +41,31 @@ make filelog-count
 make commitlog-count
 ----
 
-. Go to http://www.wordle.net/advanced and paste the contents of the file
-in the first box.
-
-. Make it pretty with the applet options.
-
+. Build the tag cloud you want(see `data/stats/` directory), either using
+  worlde or processing with wordookie:
+  .. Wordle
+     * Go to http://www.wordle.net/advanced
+     * Paste the contents of the file in the first box.
+     * Make it pretty with the applet options.
++
 NOTE: You can get a PDF of the tag cloud and then import it from inkscape
-to generate the image size you need ;-)
+      to generate the image size you need ;-)
++
+  .. Processing with wordookie
+     * Install http://processing.org/
+     * Install http://code.google.com/p/wordookie/
+     * Open `wordookie/TagCloud/TagCloud.pde` sketch and
+       http://processing.org/reference/environment/[export it as application].
+     * Run it passing the file you want:
++
+[source,sh]
+----
+./TagCloud file=name-of-stat.txt
+----
++
+NOTE: Please notice that on *nix you need to modify the output script to be
+      able to pass parameters. Just add `$@` at the end of the executed
+      command in the script.
 
 === Codeswarm ===
 
