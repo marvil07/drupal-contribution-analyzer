@@ -10,7 +10,14 @@ STATSDIR=data/stats
 all: doc
 
 clean:
-	rm README.html
+	rm -f \
+		README.html \
+		$(D7LOGS) \
+		$(FULLLOGS) \
+		$(STATSDIR)/drupal7-dev-participation-by-file-changes.txt \
+		$(STATSDIR)/drupalfull-dev-participation-by-file-changes.txt \
+		$(STATSDIR)/drupal7-dev-participation-by-commits.txt \
+		$(STATSDIR)/drupalfull-dev-participation-by-commits.txt
 
 doc: README.html
 README.html: README.asciidoc
