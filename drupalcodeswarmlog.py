@@ -63,6 +63,9 @@ def get_authors(subject):
         "going to http",
         "improve to the core doxygen PHPdoc",
         "after coding style fixes",
+        "and lots",
+        "lots of other people",
+        "thousands of other people",
         ]
     strip_chars = ". "
     if matches is None:
