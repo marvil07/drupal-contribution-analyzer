@@ -17,7 +17,7 @@ List words;
 Iterator itr;
 PFont font;
 
-int startTime;
+int startTime, endTime;
 float lenght, count, percent;
 
 // this table is used to store all command line parameters
@@ -55,10 +55,9 @@ void setup() {
     //println(fontList);
 
     startTime = millis();
-}
 
-void draw() {
-    if ( itr.hasNext() ) {
+    // draw by hand to avoid delay of showing
+    while ( itr.hasNext() ) {
         Word word = (Word)itr.next();
         count++;
         percent = count / lenght * 100;
@@ -70,15 +69,13 @@ void draw() {
         layout.doLayout( word );
         fill( cloudColors[ (int)random(cloudColors.length) ] );
         layout.paintWord( word );
+    }
 
-    }
-    else {
-        int endTime = millis();
-        println( "Done: " + (endTime - startTime) + " msec" );
-        saveFrame("../../data/tagclouds/" + basename(filename) + ".tif");
-        noLoop();
-        exit();
-    }
+    endTime = millis();
+    println( "Done: " + (endTime - startTime) + " msec" );
+    saveFrame("../../data/tagclouds/" + basename(filename) + ".tif");
+    noLoop();
+    exit();
 }
 
 // see http://wiki.processing.org/w/Setting_width/height_dynamically
