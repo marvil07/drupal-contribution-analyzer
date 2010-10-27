@@ -40,14 +40,26 @@ $(FULLLOGS): drupal-core-git-repo data/logs
 	@echo $(TIMEWARNING)
 	python drupalcodeswarmlog.py -a drupal-core-git-repo | sed -f post-process.sed > $(FULLLOGS)
 
-filelog-count: data/stats/drupal7-dev-participation-by-file-changes.txt data/stats/drupalfull-dev-participation-by-file-changes.txt
+filelog-count: filelog-count-d7 filelog-count-full
+filelog-count-full: data/stats/drupalfull-dev-participation-by-file-changes.txt
+filelog-count-d7: data/stats/drupal7-dev-participation-by-file-changes.txt data/stats/drupal7-dev-participation-by-file-changes-no-committers.txt
 data/stats/drupal7-dev-participation-by-file-changes.txt: $(D7LOGS) data/stats
 	./prepare_tag_output.sh file-activity $(D7LOGS) > data/stats/drupal7-dev-participation-by-file-changes.txt
 data/stats/drupalfull-dev-participation-by-file-changes.txt: $(FULLLOGS) data/stats
 	./prepare_tag_output.sh file-activity $(FULLLOGS) > data/stats/drupalfull-dev-participation-by-file-changes.txt
+data/stats/drupal7-dev-participation-by-file-changes-no-committers.txt: data/stats/drupal7-dev-participation-by-file-changes.txt
+	egrep -v '(Dries|webchick)' data/stats/drupalfull-dev-participation-by-file-changes.txt > data/stats/drupal7-dev-participation-by-file-changes-no-committers.txt
+data/stats/drupalfull-dev-participation-by-file-changes-no-committers.txt: data/stats/drupalfull-dev-participation-by-file-changes.txt
+	egrep -v '(Dries|drumm|Gábor Hojtsy|jeroen|killes|kjartan|natrak|Steven|webchick)' data/stats/drupalfull-dev-participation-by-file-changes.txt > data/stats/drupalfull-dev-participation-by-file-changes-no-committers.txt
 
-commitlog-count: data/stats/drupal7-dev-participation-by-commits.txt data/stats/drupalfull-dev-participation-by-commits.txt
+commitlog-count: commitlog-count-full commitlog-count-d7
+commitlog-count-full: data/stats/drupalfull-dev-participation-by-commits.txt data/stats/drupalfull-dev-participation-by-commits-no-committers.txt
+commitlog-count-d7: data/stats/drupal7-dev-participation-by-commits.txt data/stats/drupal7-dev-participation-by-commits-no-committers.txt
 data/stats/drupal7-dev-participation-by-commits.txt: $(D7LOGS) data/stats
 	./prepare_tag_output.sh commit-activity $(D7LOGS) > data/stats/drupal7-dev-participation-by-commits.txt
 data/stats/drupalfull-dev-participation-by-commits.txt: $(FULLLOGS) data/stats
 	./prepare_tag_output.sh commit-activity $(FULLLOGS) > data/stats/drupalfull-dev-participation-by-commits.txt
+data/stats/drupal7-dev-participation-by-commits-no-committers.txt: data/stats/drupal7-dev-participation-by-commits.txt
+	egrep -v '(Dries|webchick)' data/stats/drupal7-dev-participation-by-commits.txt > data/stats/drupal7-dev-participation-by-commits-no-committers.txt
+data/stats/drupalfull-dev-participation-by-commits-no-committers.txt: data/stats/drupalfull-dev-participation-by-commits.txt
+	egrep -v '(Dries|drumm|Gábor Hojtsy|jeroen|killes|kjartan|natrak|Steven|webchick)' data/stats/drupalfull-dev-participation-by-commits.txt > data/stats/drupalfull-dev-participation-by-commits-no-committers.txt
