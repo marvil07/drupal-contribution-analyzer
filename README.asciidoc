@@ -60,7 +60,8 @@ NOTE: You can get a PDF of the tag cloud and then import it from inkscape
 +
 [source,sh]
 ----
-./TagCloud file=name-of-stat.txt
+# this is a really time consuming operation
+make data/tagclouds/name-of-stat.txt.tif
 ----
 +
 NOTE: Please notice that on *nix you need to modify the output script to be

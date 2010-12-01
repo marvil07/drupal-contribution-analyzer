@@ -6,12 +6,14 @@ TIMEWARNING=Making the logs is a time consuming operation, please be patient.
 D7LOGS=data/logs/drupal7-git-logs.xml
 FULLLOGS=data/logs/drupalfull-git-logs.xml
 
-all: doc data/logs data/stats filelog-count commitlog-count
+all: doc data/logs data/stats filelog-count commitlog-count tagclouds
 
 data/logs:
 	mkdir -p data/logs
 data/stats:
 	mkdir -p data/stats
+data/tagclouds:
+	mkdir -p data/tagclouds
 
 clean:
 	rm -f \
@@ -63,3 +65,28 @@ data/stats/drupal7-dev-participation-by-commits-no-committers.txt: data/stats/dr
 	egrep -v '(Dries|webchick)' data/stats/drupal7-dev-participation-by-commits.txt > data/stats/drupal7-dev-participation-by-commits-no-committers.txt
 data/stats/drupalfull-dev-participation-by-commits-no-committers.txt: data/stats/drupalfull-dev-participation-by-commits.txt
 	egrep -v '(Dries|drumm|Gábor Hojtsy|jeroen|killes|kjartan|natrak|Steven|webchick)' data/stats/drupalfull-dev-participation-by-commits.txt > data/stats/drupalfull-dev-participation-by-commits-no-committers.txt
+
+tagclouds: tagclouds-d7 tagclouds-full
+tagcloud-base: data/tagclouds TagCloud/application.linux/TagCloud
+TagCloud/application.linux/TagCloud: doc
+	@echo ": Manual generation of TagCloud binary"
+	@echo "Please create the TagCloud binary, see README.html for details."
+	@echo "Tagclouds will not be generated until you get the tagcloud binary in place."
+tagclouds-d7: commitlog-count-d7 filelog-count-d7 data/tagclouds/drupal7-dev-participation-by-commits-no-committers.txt.tif data/tagclouds/drupal7-dev-participation-by-commits.txt.tif data/tagclouds/drupal7-dev-participation-by-file-changes-no-committers.txt.tif data/tagclouds/drupal7-dev-participation-by-file-changes.txt.tif
+tagclouds-full: commitlog-count-full filelog-count-full data/tagclouds/drupalfull-dev-participation-by-commits-no-committers.txt.tif data/tagclouds/drupalfull-dev-participation-by-commits.txt.tif data/tagclouds/drupalfull-dev-participation-by-file-changes-no-committers.txt.tif data/tagclouds/drupalfull-dev-participation-by-file-changes.txt.tif
+data/tagclouds/drupal7-dev-participation-by-commits-no-committers.txt.tif: tagcloud-base data/stats/drupal7-dev-participation-by-commits-no-committers.txt
+	./TagCloud/application.linux/TagCloud destination=data/tagclouds file=data/stats/drupal7-dev-participation-by-commits-no-committers.txt
+data/tagclouds/drupal7-dev-participation-by-commits.txt.tif: tagcloud-base data/stats/drupal7-dev-participation-by-commits.txt
+	./TagCloud/application.linux/TagCloud destination=data/tagclouds file=data/stats/drupal7-dev-participation-by-commits.txt
+data/tagclouds/drupal7-dev-participation-by-file-changes-no-committers.txt.tif: tagcloud-base data/stats/drupal7-dev-participation-by-file-changes-no-committers.txt
+	./TagCloud/application.linux/TagCloud destination=data/tagclouds file=data/stats/drupal7-dev-participation-by-file-changes-no-committers.txt
+data/tagclouds/drupal7-dev-participation-by-file-changes.txt.tif: tagcloud-base data/stats/drupal7-dev-participation-by-file-changes.txt
+	./TagCloud/application.linux/TagCloud destination=data/tagclouds file=data/stats/drupal7-dev-participation-by-file-changes.tx
+data/tagclouds/drupalfull-dev-participation-by-commits-no-committers.txt.tif: tagcloud-base data/stats/drupalfull-dev-participation-by-commits-no-committers.txt
+	./TagCloud/application.linux/TagCloud destination=data/tagclouds file=data/stats/drupalfull-dev-participation-by-commits-no-committers.txt
+data/tagclouds/drupalfull-dev-participation-by-commits.txt.tif: tagcloud-base data/stats/drupalfull-dev-participation-by-commits.txt
+	./TagCloud/application.linux/TagCloud destination=data/tagclouds file=data/stats/drupalfull-dev-participation-by-commits.txt
+data/tagclouds/drupalfull-dev-participation-by-file-changes-no-committers.txt.tif: tagcloud-base data/stats/drupalfull-dev-participation-by-file-changes-no-committers.txt
+	./TagCloud/application.linux/TagCloud destination=data/tagclouds file=data/stats/drupalfull-dev-participation-by-file-changes-no-committers.txt
+data/tagclouds/drupalfull-dev-participation-by-file-changes.txt.tif: tagcloud-base data/stats/drupalfull-dev-participation-by-file-changes.txt
+	./TagCloud/application.linux/TagCloud destination=data/tagclouds file=data/stats/drupalfull-dev-participation-by-file-changes.txt
