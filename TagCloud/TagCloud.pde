@@ -24,9 +24,11 @@ float lenght, count, percent;
 // in the form: name=value
 static Hashtable parameters = new Hashtable();
 String filename = "";
+String destination = "";
 
 void setup() {
     filename = param("file");
+    destination = param("destination");
     size( 1400, 900);
     smooth();
 
@@ -73,7 +75,7 @@ void setup() {
 
     endTime = millis();
     println( "Done: " + (endTime - startTime) + " msec" );
-    saveFrame("../../data/tagclouds/" + basename(filename) + ".tif");
+    saveFrame(destination + "/" + basename(filename) + ".tif");
     noLoop();
     exit();
 }
