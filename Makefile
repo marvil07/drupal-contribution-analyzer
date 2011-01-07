@@ -1,7 +1,7 @@
 include config.mk
 
 # d7 target
-TARGET=703488e5c5daf2c917c2d114d7946bc3a206519d..master
+D7TARGET=703488e5c5daf2c917c2d114d7946bc3a206519d..DRUPAL-7-0
 TIMEWARNING=Making the logs is a time consuming operation, please be patient.
 D7LOGS=data/logs/drupal7-git-logs.xml
 FULLLOGS=data/logs/drupalfull-git-logs.xml
@@ -35,7 +35,7 @@ drupal-core-git-repo:
 $(D7LOGS): drupal-core-git-repo data/logs
 	@echo ": creating D7 logs"
 	@echo $(TIMEWARNING)
-	python drupalcodeswarmlog.py drupal-core-git-repo $(TARGET) | sed -f post-process.sed > $(D7LOGS)
+	python drupalcodeswarmlog.py drupal-core-git-repo $(D7TARGET) | sed -f post-process.sed > $(D7LOGS)
 
 $(FULLLOGS): drupal-core-git-repo data/logs
 	@echo ": creating whole history logs"
