@@ -81,7 +81,7 @@ data/tagclouds/drupal7-dev-participation-by-commits.txt.tif: tagcloud-base data/
 data/tagclouds/drupal7-dev-participation-by-file-changes-no-committers.txt.tif: tagcloud-base data/stats/drupal7-dev-participation-by-file-changes-no-committers.txt
 	./TagCloud/application.linux/TagCloud destination=data/tagclouds file=data/stats/drupal7-dev-participation-by-file-changes-no-committers.txt
 data/tagclouds/drupal7-dev-participation-by-file-changes.txt.tif: tagcloud-base data/stats/drupal7-dev-participation-by-file-changes.txt
-	./TagCloud/application.linux/TagCloud destination=data/tagclouds file=data/stats/drupal7-dev-participation-by-file-changes.tx
+	./TagCloud/application.linux/TagCloud destination=data/tagclouds file=data/stats/drupal7-dev-participation-by-file-changes.txt
 data/tagclouds/drupalfull-dev-participation-by-commits-no-committers.txt.tif: tagcloud-base data/stats/drupalfull-dev-participation-by-commits-no-committers.txt
 	./TagCloud/application.linux/TagCloud destination=data/tagclouds file=data/stats/drupalfull-dev-participation-by-commits-no-committers.txt
 data/tagclouds/drupalfull-dev-participation-by-commits.txt.tif: tagcloud-base data/stats/drupalfull-dev-participation-by-commits.txt
